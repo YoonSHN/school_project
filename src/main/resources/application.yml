@@ -1,0 +1,27 @@
+server:
+  port : 8080
+spring:
+  thymeleaf:
+    cache: false
+    prefix: file:scr/main/resources/templates
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled :true
+  datasource:
+    url: jdbc:mysql://localhost:3306/market?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    Username: root
+    password : acgjlm246!
+    driver-class-name : org.mysql.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        ## show_sql: true
+        format_sql: true
+
+logging.level:
+  org.hibernate.SQL: debug
