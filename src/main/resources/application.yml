@@ -3,23 +3,20 @@ server:
 spring:
   thymeleaf:
     cache: false
-    prefix: file:scr/main/resources/templates
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      enabled :true
+    prefix: file:src/main/resources/templates
+
   datasource:
     url: jdbc:mysql://localhost:3306/market?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-    Username: root
+    username: root
     password : acgjlm246!
-    driver-class-name : org.mysql.jdbc.Driver
+    driver-class-name : com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
+        dialect : org.hibernate.dialect.MySQL8Dialect
         ## show_sql: true
         format_sql: true
 
