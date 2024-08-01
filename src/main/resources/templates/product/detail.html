@@ -3,10 +3,10 @@
       layout:decorate="~{/layout/layout}">
 <section layout:fragment="content" class = "section-prod-list" >
     <div class="container">
-        <div class="card">
+        <div class="card-header">
             상품 상세 정보
         </div>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush gap-2">
             <li class="list-group-item">
                 <img class ="w-full max-w-[300px] resize-image "src="https://i.imgur.com/PVsCFy1.png" alt="이미지 준비중">
             </li>
@@ -34,8 +34,35 @@
                 <span>경매 종료일 : </span>
                 <span class ="badge bg-warning">2024-09-01</span>
             </li>
-
+            <!--스크립트 내용 넣어야 함-->
         </ul>
+        <div class="card mt-[30px]">
+            <div class="card-header">
+                질문등록
+            </div>
+            <div class="card-body">
+                <form action="#" method="POST">
+                    폼 내용
+                </form>
+                <a href="#">로그인</a>후 이용해주세요.
+            </div>
+        </div>
+        <div class="card mt-[30px]">
+            <div class="card-header">
+                질문 리스트
+            </div>
+            <ul class="list-group list-group-flush gap-2">
+                <li class="list-group-item">
+                    <span class="badge bd-secondary">질문 ID</span>
+                    <span>질문 질문내용</span>
+
+                    <a href="#" class="btn btn-sm btn-info">수정</a>
+                    <a href="#" class="btn btn-sm btn-warning" onclick="if(confirm('정말 삭제하겠습니까?') == false) return false;">삭제</a>
+                </li>
+            </ul>
+        </div>
     </div>
+
+</section>
 </section>
 </html>
