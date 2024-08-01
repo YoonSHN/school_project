@@ -15,7 +15,6 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
     public Member join(String username, String password, String email) {
         Member member = new Member();
         member.setUsername(username);
