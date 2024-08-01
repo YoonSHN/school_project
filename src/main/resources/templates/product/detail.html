@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layout/layout}">
+<section layout:fragment="content" class = "section-prod-list" >
+    <div class="container">
+        <div class="card">
+            상품 상세 정보
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <img class ="w-full max-w-[300px] resize-image "src="https://i.imgur.com/PVsCFy1.png" alt="이미지 준비중">
+            </li>
+            <li class="list-group-item">
+                <span>번호 : </span>
+                <span class ="badge bg-secondary">123</span>
+            </li>
+            <li class="list-group-item">
+                <span>상품명 : </span>
+                <span class ="badge bg-primary">고양이</span>
+            </li>
+            <li class="list-group-item">
+                <span>등록 날짜 : </span>
+                <span>2024-08-01</span>
+            </li>
+            <li class="list-group-item">
+                <span>현재 가격 : </span>
+                <span class ="badge bg-primary">10000</span>
+            </li>
+            <li class="list-group-item">
+                <span>입찰 단가 : </span>
+                <span class ="badge bg-primary">500</span>
+            </li>
+            <li class="list-group-item">
+                <span>경매 종료일 : </span>
+                <span class ="badge bg-warning">2024-09-01</span>
+            </li>
+
+        </ul>
+    </div>
+</section>
+</html>

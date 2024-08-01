@@ -10,16 +10,11 @@
 --tw-border-opacity:1;
 border-color:rgb((229 231 235) /var(--tw-border-opacity));
 }
-.custom-search-input {
-    flex-grow: 1; /* 입력 필드가 남은 공간을 차지하도록 설정 */
-    margin-right: 10px; /* 오른쪽 여백 설정 */
-}
 
-.custom-search-button {
-    white-space: nowrap; /* 텍스트가 잘리지 않도록 설정 */
-    flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
+.resize-image {
+    width: 300px;
+    height: auto;
 }
-
 .t-relative{
     position : relative;
 }
