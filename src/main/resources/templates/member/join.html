@@ -8,7 +8,7 @@
                     회원가입
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/member/join}" method="POST">
+                    <form th:action="@{/member/join}"th:object="${memberForm}" method="POST">
                         <div class="mb-3">
                             <label for="username" class="form-label">이름</label>
                             <input type="text" name ="username" id="username" class="form-control">
