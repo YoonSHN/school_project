@@ -17,7 +17,6 @@ public class MemberServiceTests {
         String username = "user1";
         String password = "user1";
         String email = "user1@test.com";
-
         memberService.join(username, password, email);
     }
 }

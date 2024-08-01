@@ -1,6 +1,7 @@
 package com.auction.auction.member.service;
 
 import com.auction.auction.member.entity.Member;
+import com.auction.auction.member.repository.MemberRepository;
 import com.auction.auction.product.entity.Product;
 import com.auction.auction.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,15 +14,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final ProductRepository productRepository;
+    private final MemberRepository memberRepository;
 
-    public List<Product> getList(){
-        return productRepository.findAll();
-    }
+    public Member join(String username, String password, String email) {
+        Member member = new Member();
+        member.setUsername(username);
+        member.setPassword(password);
+        member.setEmail(email);
+        member.setCreateDate(LocalDateTime.now());
 
-    public void create(String name, int price) {
-        Member m = new Member();
-        m.setUsername("윤승현");
-        m.setPassword("1234");
+        memberRepository.save(member);
+
+        return member;
     }
 }
