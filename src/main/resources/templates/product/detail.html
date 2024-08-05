@@ -16,7 +16,7 @@
             </li>
             <li class="list-group-item">
                 <span>상품명 : </span>
-                <span class ="badge bg-primary">고양이</span>
+                <span class="font-bold" th:text="${product.name}"></span>
             </li>
             <li class="list-group-item">
                 <span>등록 날짜 : </span>
@@ -24,11 +24,11 @@
             </li>
             <li class="list-group-item">
                 <span>현재 가격 : </span>
-                <span class ="badge bg-primary">10000</span>
+                <span th:text="${product.price}"></span>
             </li>
             <li class="list-group-item">
                 <span>입찰 단가 : </span>
-                <span class ="badge bg-primary">500</span>
+                <span th:text="${product.bid_increment}"></span>
             </li>
             <li class="list-group-item">
                 <span>경매 종료일 : </span>
