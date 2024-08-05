@@ -5,6 +5,7 @@ import com.auction.auction.member.repository.MemberRepository;
 import com.auction.auction.product.entity.Product;
 import com.auction.auction.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,10 +16,12 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+
     public Member join(String username, String password, String email) {
         Member member = new Member();
         member.setUsername(username);
-        member.setPassword(password);
+        member.setPassword(passwordEncoder.encode(password));
         member.setEmail(email);
         member.setCreateDate(LocalDateTime.now());
 
