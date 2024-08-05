@@ -22,12 +22,11 @@ public class ProductController {
     public String list(Model model){
         List<Product> productList = productService.getList();
         model.addAttribute("productList",productList);
-        return "product/list";
+        return "/product/list";
     }
     @GetMapping("/detail/{id}")
     public String list(@PathVariable("id")Long id,  Model model){
-
-        return "product/detail";
+        return "/product/detail";
     }
 
 
