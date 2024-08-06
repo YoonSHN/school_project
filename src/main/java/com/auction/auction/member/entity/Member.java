@@ -1,5 +1,6 @@
 package com.auction.auction.member.entity;
 
+import com.auction.auction.market.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,18 +15,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Member extends BaseEntity {
     private String username;
     private String password;
     private String email;
-
-    @CreatedDate
-    private LocalDateTime createDate;
-    @LastModifiedDate
-    private LocalDateTime modifyDate;
-
-
 
 }
