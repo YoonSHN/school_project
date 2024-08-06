@@ -1,6 +1,8 @@
 package com.auction.auction.product.entity;
 
 import com.auction.auction.market.base.BaseEntity;
+import com.auction.auction.market.entity.Market;
+import com.auction.auction.question.entity.Question;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +13,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,6 +25,11 @@ public class Product extends BaseEntity {
     private int price; //현재 경마가
     private int bid_increment; //입찰단가
     private boolean ongoing = false; //경매중인지?
+    private String script;
+    private int hitCount;
 
+
+    private Market market;
+    private List<Question>questionList;
 
 }
