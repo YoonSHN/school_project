@@ -1,17 +1,13 @@
 package com.auction.auction.member.entity;
 
 import com.auction.auction.market.base.BaseEntity;
-import com.auction.auction.question.entity.Question;
+import com.auction.auction.question.entity.Inquiry;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,6 +18,6 @@ public class Member extends BaseEntity {
     private String password;
     private String email;
 
-
-    private List<Question> questionList;
+    @OneToMany(mappedBy="member",cascade= CascadeType.REMOVE)
+    private List<Inquiry> inquiryList;
 }
