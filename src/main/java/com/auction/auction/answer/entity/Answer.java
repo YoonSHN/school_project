@@ -2,7 +2,7 @@ package com.auction.auction.answer.entity;
 
 import com.auction.auction.market.base.BaseEntity;
 import com.auction.auction.member.entity.Member;
-import com.auction.auction.question.entity.Inquiry;
+import com.auction.auction.inquiry.entity.Inquiry;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;

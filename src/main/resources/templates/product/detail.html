@@ -6,7 +6,7 @@
         <div class="card-header">
             상품 상세 정보
         </div>
-        <ul class="list-group list-group-flush gap-2">
+        <ul class=  "list-group list-group-flush gap-2">
             <li class="list-group-item">
                 <img class ="w-full max-w-[300px] resize-image "src="https://i.imgur.com/PVsCFy1.png" alt="이미지 준비중">
             </li>
@@ -29,6 +29,10 @@
             <li class="list-group-item">
                 <span>입찰 단가 : </span>
                 <span th:text="${product.bid_increment}"></span>
+            </li>
+            <li class="list-group-item">
+                <span>제품 설명 : </span>
+                <span th:text="${product.script}"></span>
             </li>
             <li class="list-group-item">
                 <span>경매 종료일 : </span>

@@ -1,4 +1,4 @@
-package com.auction.auction.question.entity;
+package com.auction.auction.inquiry.entity;
 
 import com.auction.auction.market.base.BaseEntity;
 import com.auction.auction.member.entity.Member;

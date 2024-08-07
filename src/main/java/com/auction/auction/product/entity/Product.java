@@ -2,7 +2,7 @@ package com.auction.auction.product.entity;
 
 import com.auction.auction.market.base.BaseEntity;
 import com.auction.auction.market.entity.Market;
-import com.auction.auction.question.entity.Inquiry;
+import com.auction.auction.inquiry.entity.Inquiry;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
