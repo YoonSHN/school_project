@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
 public class BaseEntity {
 
     @Id
