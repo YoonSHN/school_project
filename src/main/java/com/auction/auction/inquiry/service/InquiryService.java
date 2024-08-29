@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,23 @@ public class InquiryService {
         inquiry.setBody(body);
         inquiry.setTitle(title);
         inquiry.setCreateDate(LocalDateTime.now());
+
+        inquiryRepository.save(inquiry);
+    }
+
+    public Inquiry getInquiry(Long id) {
+        Optional<Inquiry> inquiry = inquiryRepository.findById(id);
+        if(inquiry.isPresent()){
+            return inquiry.get();
+        }
+        else{
+            throw new RuntimeException("question not found");
+        }
+    }
+
+    public void modify(Inquiry inquiry, String content) {
+        inquiry.setTitle(content);
+        inquiry.setModifyDate(LocalDateTime.now());
 
         inquiryRepository.save(inquiry);
     }

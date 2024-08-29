@@ -31,6 +31,12 @@ public class InquiryController {
         model.addAttribute("product", product);
         return "/inquiry/create";
     }
+    @GetMapping("/modify/{id}")
+    public String modify(@PathVariable("id")Long id, Model model){
+        Inquiry inquiry = inquiryService.getInquiry(id);
+        model.addAttribute("inquiry",inquiry);
+        return "inquiry/modify";
+    }
 
     @PostMapping("/create")
     public String submit(@RequestParam("productId") Long productId,
@@ -43,5 +49,17 @@ public class InquiryController {
         System.out.println(product.toString());
         inquiryService.create(product, member,title, body);
         return "redirect:/product/detail/" +productId;
+    }
+    @PostMapping("/modify/{id}")
+    public String modify(@PathVariable("id") Long id,
+                         Principal principal,
+                         @RequestParam("id") String content){
+        Inquiry inquiry = inquiryService.getInquiry(id);
+        inquiryService.modify(inquiry, content);
+        Long productId = inquiry.getProduct().getId();
+
+        return String.format("redirect:/product/detail/%s", productId);
+
+
     }
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layout/layout}">
+<section layout:fragment="content" class = "section-prod-list" >
+    <div class="container">
+        <div class="card-header">
+            상품 상세 정보
+        </div>
+        <ul class=  "list-group list-group-flush gap-2">
+            <li class="list-group-item">
+                <img class ="w-full max-w-[300px] resize-image "src="https://i.imgur.com/PVsCFy1.png" alt="이미지 준비중">
+            </li>
+            <li class="list-group-item">
+                <span>번호 : </span>
+                <span class ="badge bg-secondary" th:text="${inquiry.product.id}"></span>
+            </li>
+            <li class="list-group-item">
+                <span>상품명 : </span>
+                <span class="font-bold" th:text="${inquiry.product.name}"></span>
+            </li>
+            <li class="list-group-item">
+                <span>등록 날짜 : </span>
+                <span th:text="${#temporals.format(inquiry.product.createDate,'yyyy-MM-dd HH:mm')}">2024-08-01</span>
+            </li>
+            <li class="list-group-item">
+                <span>수정 날짜 : </span>
+                <span th:text="${#temporals.format(inquiry.product.modifyDate,'yyyy-MM-dd HH:mm')}">2024-08-01</span>
+            </li>
+            <li class="list-group-item">
+                <span>현재 가격 : </span>
+                <span th:text="${inquiry.product.price}"></span>
+            </li>
+            <li class="list-group-item">
+                <span>입찰 단가 : </span>
+                <span th:text="${inquiry.product.bid_increment}"></span>
+            </li>
+            <li class="list-group-item">
+                <span>제품 설명 : </span>
+                <span th:text="${inquiry.product.script}"></span>
+            </li>
+            <li class="list-group-item">
+                <span>경매 종료일 : </span>
+                <span th:text="${#temporals.format(inquiry.product.modifyDate,'yyyy-MM-dd HH:mm')}">2024-08-01</span>
+            </li>
+
+            <!--스크립트 내용 넣어야 함-->
+        </ul>
+        <div class="card mt-[30px]">
+            <div class="card-header">
+                상품 질문 수정
+            </div>
+            <div class="card-body">
+                <form th:action="@{|/inquiry/modify/${inquiry.id}|}" method="POST">
+                    <div class="mt-3">
+                        <div class="mb-3">
+                            <label for="id" class="form-label">내용</label>
+                            <textarea th:text="${inquiry.id}" name="id" id ="id" class="form-control" row="7"></textarea>
+                        </div>
+                        <input type="submit" value="질문 수정" class="btn btn-primary m1-m2">
+                        <a th:href="@{|/product.detail/${inquiry.product.id}|}" class="btn btn-primary m1-m2">취소</a>
+                    </div>
+                </form>
+                <script>
+                    let $lastForm = $('form').last();
+                    $(window).on('load', function(){
+                        $(window).scrollTop($lastForm.offset().top);
+                    })
+                </script>
+            </div>
+        </div>
+    </div>
+
+</section>
+</section>
+</html>
