@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="t-text-[1.5rem] t-font-bold">영상 리스트 </h1>
         <ul class="t-grid t-grid-cols-1 sm:t-grid-cols-2 md:t-grid-cols-3 lg:t-grid-cols-4 t-gap-[20px] t-mt-3">
-            <li th:each="product ,loop: ${productList}" class="t-flex t-flex-col">
+            <li th:each="product ,loop: ${paging}" class="t-flex t-flex-col">
                 <a th:href="@{|/product/detail/${product.id}|}" href="#" data-before="VIEW MORE">
                     <img class ="t-block t-w-full" src="https://i.imgur.com/PVsCFy1.png" alt="">
                 </a>
@@ -13,7 +13,24 @@
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="'입찰 단가: '+ ${product.bid_increment}" class="t-text-center t-mt-2"></a>
             </li>
         </ul>
-    </div>
+        <ul th:if="${!paging.isEmpty()}" class="pagination flex justify-center mt-10">
+            <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                    <span>&lt;</span>
+                </a>
+            </li>
+            <li th:each="page : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                th:if="${page >= paging.number - 5 and page <= paging.number + 5}"
+                th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                <a th:href="@{|?page=${page}|}" class="page-link" th:text="${page + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number + 1}|}">
+                    <span>&gt;</span>
+                </a>
+            </li>
+        </ul>
 
+    </div>
 </section>
 </html>

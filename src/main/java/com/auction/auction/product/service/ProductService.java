@@ -3,6 +3,9 @@ package com.auction.auction.product.service;
 import com.auction.auction.product.entity.Product;
 import com.auction.auction.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,8 +18,9 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> getList(){
-        return productRepository.findAll();
+    public Page<Product> getList(int page){
+        Pageable pageable = PageRequest.of(page, 4);
+        return productRepository.findAll(pageable);
     }
 
     public void create(String name, int price) {
