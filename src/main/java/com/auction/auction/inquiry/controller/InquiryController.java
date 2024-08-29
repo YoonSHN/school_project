@@ -37,6 +37,15 @@ public class InquiryController {
         model.addAttribute("inquiry",inquiry);
         return "inquiry/modify";
     }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id")Long id){
+        Inquiry inquiry = inquiryService.getInquiry(id);
+        inquiryService.delete(inquiry);
+
+        Long productId = inquiry.getProduct().getId();
+
+        return String.format("redirect:/product/detail/%s", productId);
+    }
 
     @PostMapping("/create")
     public String submit(@RequestParam("productId") Long productId,

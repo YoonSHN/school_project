@@ -43,4 +43,8 @@ public class InquiryService {
 
         inquiryRepository.save(inquiry);
     }
+
+    public void delete(Inquiry inquiry) {
+        inquiryRepository.delete(inquiry);
+    }
 }
