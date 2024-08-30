@@ -20,11 +20,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public Page<Product> getList(int page){
+    public Page<Product> getList(int page, String kw){
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
         Pageable pageable = PageRequest.of(page, 4, Sort.by(sorts));
-        return productRepository.findAll(pageable);
+        return productRepository.findAllByKeyWord(kw, pageable);
     }
 
     public void create(String name, int price) {

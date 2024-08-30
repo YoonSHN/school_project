@@ -53,8 +53,8 @@
                 </ul>
                 <div class = "text-white mr-3 mb-2" sec:authorize="isAuthenticated()" th:text="@{|${#authentication.name}님|}"></div>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="상품명을 입력해주세요." aria-label="Search">
-                    <button class="btn btn-outline-info t-whitespace-nowrap" type="submit">검색</button>
+                    <input class="form-control me-2" type="text" id="search_kw" th:value="${kw}" placeholder="상품명을 입력해주세요." aria-label="Search">
+                    <button class="btn btn-outline-info t-whitespace-nowrap"  type="button" id="btn_search">검색</button>
                 </form>
             </div>
 
