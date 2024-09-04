@@ -1,5 +1,6 @@
 package com.auction.auction.product.entity;
 
+import com.auction.auction.cart.entity.Cart;
 import com.auction.auction.market.base.BaseEntity;
 import com.auction.auction.market.entity.Market;
 import com.auction.auction.inquiry.entity.Inquiry;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,5 +31,8 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy="product", cascade = CascadeType.REMOVE)
     private List<Inquiry> inquiryList;
+
+    @OneToMany(mappedBy="product" , cascade = CascadeType.REMOVE)
+    private List<Cart> cartList = new ArrayList<>();
 
 }
