@@ -23,7 +23,7 @@ public class ProductService {
     public Page<Product> getList(int page, String kw){
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 4, Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sorts));
         return productRepository.findAllByKeyWord(kw, pageable);
     }
 
