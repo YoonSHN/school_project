@@ -3,18 +3,20 @@
       layout:decorate="~{/layout/layout}">
 <section layout:fragment="content" class="section-prod-list">
     <div class="container">
-        <h1 class="t-text-[1.5rem] t-font-bold">영상 리스트</h1>
-        <ul class="t-grid t-grid-cols-1 sm:t-grid-cols-2 md:t-grid-cols-3 lg:t-grid-cols-4 t-gap-[20px] t-mt-3">
-            <li th:each="product ,loop : ${paging}" class="t-flex t-flex-col">
-                <a th:href="@{|/product/detail/${product.id}|}" href="#" data-before="VIEW MORE">
-                    <img class="t-block t-w-full" src="https://i.imgur.com/PVsCFy1.png" alt="">
+        <h1 class="text-2xl font-bold mb-4">영상 리스트</h1>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+            <li th:each="product, loop : ${paging}" class="flex flex-col">
+                <a th:href="@{|/product/detail/${product.id}|}" href="#" class="block">
+                    <img class="w-full h-48 object-cover"
+                         th:src="@{${product.imagePath}}"
+                         src="https://dsi523du1o5iq.cloudfront.net/fit-in/904x0/production/article/29d76a3633/68b4dc8436_1708705668" alt="">
                 </a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.name}" class="t-text-center t-mt-2"></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.price} + '원'" class="t-text-center t-mt-2"></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="'입찰 단가: ' + ${product.bid_increment}" class="t-text-center t-mt-2"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.name}" class="text-center mt-2"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.price} + '원'" class="text-center mt-2"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="'입찰 단가: ' + ${product.bid_increment}" class="text-center mt-2"></a>
             </li>
         </ul>
-        <ul th:if="${!paging.isEmpty()}" class="pagination flex justify-center mt-10">
+        <ul th:if="${!paging.isEmpty()}" class="pagination flex justify-center mt-10 space-x-2">
             <li class="page-item" th:classappend="${!paging.hasPrevious()} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number - 1}">
                     <span>&lt;</span>
@@ -25,7 +27,7 @@
                 th:classappend="${page == paging.number} ? 'active'" class="page-item">
                 <a th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
             </li>
-            <li class="page-item" th:classappend="${!paging.hasNext()} ?'disabled'">
+            <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number + 1}">
                     <span>&gt;</span>
                 </a>

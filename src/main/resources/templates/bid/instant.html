@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .section-prod-list {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .badge {
+            font-size: 0.9rem;
+        }
+        .card-header {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<section layout:fragment="content" class="section-prod-list">
+    <h1 class="text-center mb-4">구매 결제창</h1>
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-header bg-light">
+                주문자 정보
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span>유저 이름:</span>
+                        <span class="badge bg-secondary float-right" th:text="${member.username}">123</span>
+                    </li>
+                    <li class="list-group-item">
+                        <span>유저 이메일:</span>
+                        <span class="badge bg-secondary float-right" th:text="${member.email}">123</span>
+                    </li>
+                    <li class="list-group-item">
+                        <span>유저 잔액:</span>
+                        <span class="badge bg-secondary float-right" th:text="${member.balance}">123</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header bg-light">
+                상품 정보
+            </div>
+            <div class="card-body">
+                <img src="https://dsi523du1o5iq.cloudfront.net/fit-in/904x0/production/article/29d76a3633/68b4dc8436_1708705668"
+                     alt="상품 이미지" class="product-image">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span>상품 번호:</span>
+                        <span class="badge bg-secondary float-right" th:text="${product.id}">123</span>
+                    </li>
+                    <li class="list-group-item">
+                        <span>상품 이름:</span>
+                        <span class="badge bg-secondary float-right" th:text="${product.name}">123</span>
+                    </li>
+                    <li class="list-group-item">
+                        <span>즉시 구매가:</span>
+                        <span class="badge bg-secondary float-right" th:text="${product.instantPrice}">123</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header bg-light">
+                최종 결제 정보
+            </div>
+            <div class="card-body fs-3">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span>결제 금액:</span>
+                        <span class="badge bg-secondary float-right" th:text="${product.instantPrice}" style="font-size: 24px;">123</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <form th:action="@{/bid/purchase}" method="post" class="text-center">
+            <input type="hidden" name="productId" th:value="${product.id}">
+            <input type="hidden" name="purchaseAmount" th:value="${product.price}">
+            <button type="submit" class="btn btn-danger">결제하기</button>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

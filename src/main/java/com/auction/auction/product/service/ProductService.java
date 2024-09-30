@@ -43,4 +43,8 @@ public class ProductService {
             throw new RuntimeException("product not found");
         }
     }
+    public void saveProduct(Product product) {
+        productRepository.save(product);
+    }
+
 }

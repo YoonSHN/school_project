@@ -83,7 +83,21 @@ public class InquiryController {
         }
 
         return String.format("redirect:/product/detail/%s", productId);
-
-
     }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/check/{id}")
+    public String check(@PathVariable("id") Long id, Model model){
+        Product product = productService.getProduct(id);
+        model.addAttribute("product", product);
+        model.addAttribute("productInquiryList", product.getInquiryList());
+        return "/inquiry/check";  // 템플릿 파일명
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/check/{id}")
+    public String checkPost(@PathVariable("id") Long id){
+
+        return String.format("redirect:/inquiry/check/%s", id);
+    }
+
 }

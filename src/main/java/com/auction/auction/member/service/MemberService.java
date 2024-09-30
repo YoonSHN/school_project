@@ -24,6 +24,7 @@ public class MemberService {
         member.setUsername(username);
         member.setPassword(passwordEncoder.encode(password));
         member.setEmail(email);
+        member.setBalance(0L);
         member.setCreateDate(LocalDateTime.now());
 
         memberRepository.save(member);
@@ -39,5 +40,17 @@ public class MemberService {
         }else{
             throw new RuntimeException("member not found");
         }
+    }
+    public Member findById(Long id){
+        Optional<Member> member = memberRepository.findById(id);
+        if(!member.isEmpty()){
+            return member.get();
+        }
+        else{
+            throw new RuntimeException("member not found");
+        }
+    }
+    public void save(Member member){
+        memberRepository.save(member);
     }
 }

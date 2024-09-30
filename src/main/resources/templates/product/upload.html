@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{/layout/layout}">
+<section layout:fragment="content" class="section-prod-list">
+    <div class="container">
+        <div class="card-header mb-2">
+            물품 등록
+        </div>
+        <form th:action="@{/product/upload}" method="post" enctype="multipart/form-data">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">물품 제목</th>
+                    <td><input type="text" name="name" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">시작가</th>
+                    <td><input type="number" name="startPrice" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">즉시 구매가</th>
+                    <td><input type="number" name="instantPrice" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">입찰 단위</th>
+                    <td><input type="number" name="bid_increment" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">간단 설명</th>
+                    <td><input type="text" name="description" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">경매 기간</th>
+                    <td><input type="datetime-local" name="auctionEndDate" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">첨부 이미지 등록</th>
+                    <td><input type="file" name="image" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <th scope="row" style="background-color: #f0f0f0;">스크립트 파일</th>
+                    <td><input type="file" name="scriptFile" class="form-control" required /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button type="submit" class="btn btn-md btn-primary">등록하기</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</section>
+</html>

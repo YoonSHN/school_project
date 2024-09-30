@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 public class Market extends BaseEntity {
-    private String email;
     private String body;
     private String info;
     @OneToOne(fetch= FetchType.LAZY)

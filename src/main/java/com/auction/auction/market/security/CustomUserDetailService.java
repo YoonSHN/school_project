@@ -1,4 +1,4 @@
-package com.auction.auction.security;
+package com.auction.auction.market.security;
 
 import com.auction.auction.member.entity.Member;
 import com.auction.auction.member.repository.MemberRepository;
@@ -26,7 +26,7 @@ public class CustomUserDetailService implements UserDetailsService {
         Optional<Member> _member = memberRepository.findByUsername(username);
 
         if(_member.isEmpty()){
-            throw new UsernameNotFoundException("사용자  찾응 수 없습니다.");
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
         Member member = _member.get();
         List<GrantedAuthority> authorities = new ArrayList<>();

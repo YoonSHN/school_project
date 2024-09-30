@@ -1,4 +1,4 @@
-package com.auction.auction.security;
+package com.auction.auction.market.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
