@@ -5,6 +5,7 @@ import com.auction.auction.member.form.MemberForm;
 import com.auction.auction.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ import java.security.Principal;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
+
     @GetMapping("/login")
     public String login(){
         return "/member/login";
@@ -45,7 +48,7 @@ public class MemberController {
         String username = principal.getName();
         Member existingMember = memberService.findByUserName(username);
 
-        existingMember.setPassword(member.getPassword());
+        existingMember.setPassword(passwordEncoder.encode(member.getPassword()));
         existingMember.setEmail(member.getEmail());
         existingMember.setBalance(member.getBalance());
 

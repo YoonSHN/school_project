@@ -7,10 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +37,21 @@ public class ProductService {
         p.setCreateDate(LocalDateTime.now());
         productRepository.save(p);
     }
+    @Scheduled(fixedRate = 60000) // 1분마다 실행
+    public void updateAuctionStatus() {
+        List<Product> products = productRepository.findAll();
+        Date now = new Date();
+
+        for (Product product : products) {
+            if (product.getAuctionEndDate().after(now)) {
+                product.setOngoing(true);
+            } else {
+                product.setOngoing(false);
+            }
+        }
+
+        productRepository.saveAll(products); // 상태 업데이트 후 저장
+    }
 
     public Product getProduct(Long id) {
         Optional<Product> product = productRepository.findById(id);
@@ -46,5 +64,7 @@ public class ProductService {
     public void saveProduct(Product product) {
         productRepository.save(product);
     }
+
+
 
 }

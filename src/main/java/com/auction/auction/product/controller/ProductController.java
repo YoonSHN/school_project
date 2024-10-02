@@ -1,5 +1,7 @@
 package com.auction.auction.product.controller;
 
+import com.auction.auction.bid.entity.Bid;
+import com.auction.auction.bid.service.BidService;
 import com.auction.auction.member.entity.Member;
 import com.auction.auction.member.service.MemberService;
 import com.auction.auction.product.entity.Product;
@@ -18,12 +20,14 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
+
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
     private final MemberService memberService;
+    private final BidService bidService;
 
     @GetMapping("/product/list")
     public String list(Model model, @RequestParam(value ="page", defaultValue = "0")int page,
@@ -65,7 +69,7 @@ public class ProductController {
                                 @RequestParam("instantPrice") int instantPrice,
                                 @RequestParam("bid_increment") String bid_increment,
                                 @RequestParam("description") String description,
-                                @RequestParam("auctionEndDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date auctionEndDate,
+                                @RequestParam("auctionEndDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH") Date auctionEndDate,
                                 @RequestParam("image") MultipartFile image,
                                 @RequestParam("scriptFile") MultipartFile scriptFile) {
 
@@ -77,11 +81,16 @@ public class ProductController {
         product.setAuctionEndDate(auctionEndDate);
         product.setInstantPrice(instantPrice);
         product.setStartPrice(startPrice);
+        if (product.getAuctionEndDate().after(new Date())) {
+            product.setOngoing(true);
+        } else {
+            product.setOngoing(false);
+        }
         product.setPrice(startPrice);
         product.setBid_increment(Integer.parseInt(bid_increment));
         // 파일 저장 및 경로 설정
-        String imagePath = saveFile(image,"/yunseunghyeon/Study/pictures"); // 이미지 저장 메서드
-        String scriptFilePath = saveFile(scriptFile, "/yunseunghyeon/Study/pictures"); // 스크립트 파일 저장 메서드
+        String imagePath = saveFile(image,"/Users/yunseunghyeon/Study/pictures","/upload"); // 이미지 저장 메서드
+        String scriptFilePath = saveFile(scriptFile, "/Users/yunseunghyeon/Study/pictures","/upload"); // 스크립트 파일 저장 메서드
 
         // Product 객체에 경로 저장
         product.setImagePath(imagePath);
@@ -93,25 +102,28 @@ public class ProductController {
         return "redirect:/product/list"; // 등록 후 목록 페이지로 리다이렉트
     }
 
-    private String saveFile(MultipartFile file, String directory) {
+    private String saveFile(MultipartFile file, String directory, String webPath) {
         if (file.isEmpty()) {
             return null; // 파일이 비어있으면 null 반환
         }
 
         try {
             // 파일 저장 경로
-            String filePath = directory + "/" + file.getOriginalFilename();
+            String fileName = file.getOriginalFilename();
+            String filePath = directory + "/" + fileName;
             File destinationFile = new File(filePath);
             file.transferTo(destinationFile); // 파일 저장
 
-            return filePath; // 저장된 파일 경로 반환
+            //웹에서 접근 가능한 경로로 반환
+            return webPath + "/" + fileName;
         } catch (IOException e) {
             return null; // 예외 발생 시 null 반환
         }
     }
+    public void purchase(Product product, Principal principal) {
 
 
-
+    }
 
 
 }

@@ -5,6 +5,7 @@ import com.auction.auction.cart.entity.Cart;
 import com.auction.auction.market.base.BaseEntity;
 import com.auction.auction.market.entity.Market;
 import com.auction.auction.inquiry.entity.Inquiry;
+import com.auction.auction.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,7 @@ public class Product extends BaseEntity {
     private String script;
     private int startPrice;
     private int instantPrice;
+    private String buyer;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date auctionEndDate;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{/layout/layout}">
-
+<body>
 <section layout:fragment="content" class="section-prod-list">
     <div class="container mt-5">
         <div class="card-header mb-2">
@@ -19,7 +19,13 @@
                     <tbody>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">상품 번호</th>
-                        <td th:text="${product.id}+'번'"></td>
+                        <td>
+                            <span th:text="${product.id} + '번'"></span> <!-- 상품 번호를 출력 -->
+                            <span>
+                                <span th:if="${product.ongoing}" class="badge bg-warning">경매중</span>
+                                <span th:if="${!product.ongoing}" class="badge bg-secondary">경매종료</span>
+                            </span>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">상품 이름</th>
@@ -45,11 +51,12 @@
                         <th scope="row" style="background-color: #f0f0f0;">즉시 구매</th>
                         <td>
                             <div style="display: flex; align-items: center;">
-                                <span th:text="${product.instantPrice}+'원'" style="margin-right: 10px;"></span>
-                                <form th:action="@{/bid/instant}" method="post" style="margin: 0;">
+                                <form th:action="@{/bid/instant}" method="post" style="margin: 0;" th:if="${product.ongoing && product.price < product.instantPrice}" >
+                                    <span th:text="${product.instantPrice}+'원'" style="margin-right: 10px;"></span>
                                     <input type="hidden" name="productId" th:value="${product.id}">
                                     <button type="submit" class="btn btn-sm btn-danger">즉시구매하기</button>
                                 </form>
+                                <span th:unless="${product.ongoing && product.price < product.instantPrice}" class="btn btn-sm btn-secondary">구매 불가</span>
                             </div>
                         </td>
                     </tr>
@@ -59,16 +66,13 @@
                         <td>
                             <div style="display: flex; align-items: center;">
                                 <span th:text="${product.bidList.size()}" style="margin-right: 10px;"></span>
-                                <a th:href="@{/bid/bidding(productId = ${product.id})}" class="btn btn-sm btn-secondary" style="margin-right: 10px;">입찰기록보기</a>
+                                <a th:href="@{/bid/bidding(productId = ${product.id})}" class="btn btn-sm btn-dark" style="margin-right: 10px;">입찰기록보기</a>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">스크립트 파일</th>
-                        <td>
-                            <!-- 스크립트 파일 경로를 링크로 표시 -->
-                            <a th:href="${scriptFilePath}" download>스크립트 파일 다운로드</a>
-                        </td>
+
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">판매자 정보</th>
@@ -80,7 +84,7 @@
                             <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
                                 <span th:text="${errorMessage}"></span>
                             </div>
-                            <form th:action="@{/bid/bidding}" method="post" style="display: flex; justify-content: center; align-items: center;">
+                            <form th:action="@{/bid/bidding}" method="post" style="display: flex; justify-content: center; align-items: center;" th:if="${product.ongoing}">
                                 <input type="hidden" name="productId" th:value="${product.id}" />
                                 <input type="number" name="bidAmount" class="form-control ms-2" style="width: auto; max-width: 150px;"/>
                                 <button type="submit" class="btn btn-md btn-primary ms-2">입찰하기</button>
@@ -111,4 +115,27 @@
 
     </div>
 </section>
+<script>
+    const auctionEndDate = new Date([[${#dates.format(product.auctionEndDate, 'yyyy-MM-dd HH:mm:ss')}]]).getTime();
+    const timerElement = document.getElementById("auction-timer");
+
+    const updateTimer = () => {
+        const now = new Date().getTime();
+        const timeRemaining = auctionEndDate - now;
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerElement.innerHTML = "경매가 종료되었습니다.";
+            return;
+        }
+        console.log("123");
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+        timerElement.innerHTML = `남은 경매 시간: ${hours}시간 ${minutes}분 ${seconds}초`;
+    };
+
+    const timerInterval = setInterval(updateTimer, 1000);
+</script>
+</body>
 </html>

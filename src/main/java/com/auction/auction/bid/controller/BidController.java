@@ -85,6 +85,8 @@ public class BidController {
             return "/product/detail";
         }
 
+        product.setPrice(bidAmount.intValue());
+
         // 입찰 처리
         Bid bid = new Bid();
         bid.setBidPrice(bidAmount);

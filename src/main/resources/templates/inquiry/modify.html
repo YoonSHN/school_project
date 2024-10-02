@@ -8,7 +8,8 @@
         </div>
         <ul class=  "list-group list-group-flush gap-2">
             <li class="list-group-item">
-                <img class ="w-full max-w-[300px] resize-image "src="https://i.imgur.com/PVsCFy1.png" alt="이미지 준비중">
+                <img class ="w-full max-w-[300px] resize-image" th:src="@{${inquiry.product.imagePath}}"
+                src="https://i.imgur.com/PVsCFy1.png" alt="이미지 준비중">
             </li>
             <li class="list-group-item">
                 <span>번호 : </span>
