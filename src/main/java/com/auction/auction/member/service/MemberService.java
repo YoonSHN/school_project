@@ -50,6 +50,9 @@ public class MemberService {
             throw new RuntimeException("member not found");
         }
     }
+    public List<Member> findAll(){
+        return memberRepository.findAll();
+    }
     public void save(Member member){
         memberRepository.save(member);
     }

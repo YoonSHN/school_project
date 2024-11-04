@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/layout/layout}">
+<head>
+    <style>
+        .cart-item-img {
+            width: 80px !important;
+            height: 80px !important;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" class="section-cart-item-list">
+    <div class="container">
+        <h1 class="t-text-[1.5rem] t-font-bold flex justify-center pt-5 pb-2">
+            관리자 페이지
+        </h1>
+    </div>
+    <div class="container mt-5 flex justify-center">
+        <a class="btn btn-outline-secondary mx-2" style="padding: 10px 20px; font-size: 1rem;" type="button" th:href="@{/adm/members}">
+            회원 확인
+        </a>
+        <a class="btn btn-outline-secondary mx-2" style="padding: 10px 20px; font-size: 1rem;" type="button" th:href="@{/adm/pending}">
+            승인대기 상품
+        </a>
+    </div>
+</section>
+
+</body>
+</html>

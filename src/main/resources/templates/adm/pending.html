@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/layout/layout}">
+<head>
+    <style>
+        .cart-item-video {
+            width: 80px !important;
+            height: 80px !important;
+            object-fit: cover;
+        }
+        .dimmed {
+            opacity: 0.5; /* 흐림 효과 */
+            pointer-events: none; /* 클릭 방지 */
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" class="section-cart-item-list">
+    <div class="container">
+        <div class="container">
+            <h1 class="t-text-[1.5rem] t-font-bold flex justify-center pt-5 pb-2">
+                승인대기 물품 페이지
+            </h1>
+        </div>
+        <div class="mt-5">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">영상</th>
+                    <th scope="col">상품명</th>
+                    <th scope="col">현재가</th>
+                    <th scope="col">입찰단가</th>
+                    <th scope="col">즉시구매가</th>
+                    <th scope="col">승인여부</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product,iterStat : ${products}" th:class="${product.approvedStatus == 'APPROVED' || product.approvedStatus == 'REJECTED' ? 'dimmed' : ''}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td>
+                        <video th:src="${product.videoPath}" class="cart-item-video" muted autoplay loop></video>
+                    </td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.bid_increment}"></td>
+                    <td th:text="${product.instantPrice}"></td>
+                    <td>
+                        <form th:action="@{/adm/pending}" method="post">
+                            <input type="hidden" name="productId" th:value="${product.id}"/>
+                            <button type="submit" name="action" value="approve" class="btn btn-success">승인</button>
+                            <button type="submit" name="action" value="reject" class="btn btn-danger">거부</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

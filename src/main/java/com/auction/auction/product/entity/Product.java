@@ -22,20 +22,20 @@ import java.util.List;
 public class Product extends BaseEntity {
     private String name;
 
-    private int price; //현재 경마가
+    private int price; //현재 경매가
     private int bid_increment; //입찰단가
-    private boolean ongoing = false;//경매중인지?
-    private String description;
+    private boolean ongoing = false;//경매중인지?매
     private String script;
     private int startPrice;
     private int instantPrice;
+    private String description;
     private String buyer;
-
+    private String seller;
+    private String approvedStatus;  // "PENDING", "APPROVED", "REJECTED"
     @Temporal(TemporalType.TIMESTAMP)
     private Date auctionEndDate;
 
-    private String imagePath;        // 이미지 파일 경로
-    private String scriptFilePath;
+    private String videoPath;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="market_id")

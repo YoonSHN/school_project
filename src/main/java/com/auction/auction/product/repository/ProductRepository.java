@@ -9,15 +9,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAll(Pageable pageable);
 
     @Query("""
-            select distinct p
-            from Product p
-            where p.name LIKE %:kw%
-            or p.script LIKE %:kw%
-            """)
-    Page<Product> findAllByKeyWord(@Param("kw")String kw, Pageable pageable);
+        select distinct p
+        from Product p
+        where (p.approvedStatus = 'APPROVED') and (p.name LIKE %:kw% or p.script LIKE %:kw%)
+        """)
+    Page<Product> findAllByKeyWord(@Param("kw") String kw, Pageable pageable);
+
+
+
 }

@@ -64,7 +64,12 @@ public class ProductService {
     public void saveProduct(Product product) {
         productRepository.save(product);
     }
+    public List<Product> setProductApproved(){
+        List<Product> productList = productRepository.findAll();
+        return productList;
+    }
 
-
-
+    public void remove(Product product) {
+        productRepository.delete(product);
+    }
 }

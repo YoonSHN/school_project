@@ -1,5 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{/layout/layout}">
+<head>
+    <style>
+        .video-size {
+            width: 33%; /* 전체 너비로 설정 */
+            max-width: 400px; /* 최대 너비 설정 */
+            height: auto; /* 자동 높이 설정 */
+        }
+        .video-container {
+            position: relative; /* 비디오 컨테이너의 위치 설정 */
+            display: flex; /* 플렉스 박스 사용 */
+            justify-content: center; /* 중앙 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
+            margin: 0 auto; /* 자동 마진으로 중앙 정렬 */
+        }
+        .video-overlay {
+            position: absolute; /* 비디오 위에 오버레이를 추가 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5); /* 반투명 흰색 배경 */
+            filter: blur(5px    ); /* 블러 효과 제거 */
+            pointer-events: none; /* 오버레이가 클릭을 방해하지 않도록 설정 */
+        }
+    </style>
+</head>
 <body>
 <section layout:fragment="content" class="section-prod-list">
     <div class="container mt-5">
@@ -7,10 +33,15 @@
             상품 상세정보
         </div>
         <div class="row">
-            <!-- Left side: Image -->
+            <!-- Left side: Video -->
             <div class="col-md-6">
-                <img th:src="@{${product.imagePath}}"  src="https://dsi523du1o5iq.cloudfront.net/fit-in/904x0/production/article/29d76a3633/68b4dc8436_1708705668"
-                     alt="Product Image" class="img-fluid">
+                <div class="video-container">
+                    <video id="productVideo" muted class="img-fluid video-size" controlsList="nodownload noplaybackrate nofullscreen" disablePictureInPicture>
+                        <source th:src="@{${product.videoPath}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay"></div> <!-- 블러 효과 오버레이 -->
+                </div>
             </div>
 
             <!-- Right side: Table -->
@@ -20,7 +51,7 @@
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">상품 번호</th>
                         <td>
-                            <span th:text="${product.id} + '번'"></span> <!-- 상품 번호를 출력 -->
+                            <span th:text="${product.id} + '번'"></span>
                             <span>
                                 <span th:if="${product.ongoing}" class="badge bg-warning">경매중</span>
                                 <span th:if="${!product.ongoing}" class="badge bg-secondary">경매종료</span>
@@ -33,7 +64,7 @@
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">현재가</th>
-                        <td th:text="${product.price}+'원'"></td>
+                        <td th:text="${product.price} + '원'"></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">경매 기간</th>
@@ -41,18 +72,18 @@
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">시작가</th>
-                        <td th:text="${product.startPrice}+'원'"></td>
+                        <td th:text="${product.startPrice} + '원'"></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">입찰 단위</th>
-                        <td th:text="${product.bid_increment}+'원'"></td>
+                        <td th:text="${product.bid_increment} + '원'"></td>
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">즉시 구매</th>
                         <td>
                             <div style="display: flex; align-items: center;">
-                                <form th:action="@{/bid/instant}" method="post" style="margin: 0;" th:if="${product.ongoing && product.price < product.instantPrice}" >
-                                    <span th:text="${product.instantPrice}+'원'" style="margin-right: 10px;"></span>
+                                <form th:action="@{/bid/instant}" method="post" style="margin: 0;" th:if="${product.ongoing && product.price < product.instantPrice}">
+                                    <span th:text="${product.instantPrice} + '원'" style="margin-right: 10px;"></span>
                                     <input type="hidden" name="productId" th:value="${product.id}">
                                     <button type="submit" class="btn btn-sm btn-danger">즉시구매하기</button>
                                 </form>
@@ -60,25 +91,19 @@
                             </div>
                         </td>
                     </tr>
-
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">입찰 수</th>
                         <td>
                             <div style="display: flex; align-items: center;">
                                 <span th:text="${product.bidList.size()}" style="margin-right: 10px;"></span>
-                                <a th:href="@{/bid/bidding(productId = ${product.id})}" class="btn btn-sm btn-dark" style="margin-right: 10px;">입찰기록보기</a>
+                                <a th:href="@{/bid/bidding(productId=${product.id})}" class="btn btn-sm btn-dark" style="margin-right: 10px;">입찰기록보기</a>
                             </div>
                         </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" style="background-color: #f0f0f0;">스크립트 파일</th>
-
                     </tr>
                     <tr>
                         <th scope="row" style="background-color: #f0f0f0;">판매자 정보</th>
                         <td th:text="${member.username}"></td>
                     </tr>
-                    <!-- Add more rows as needed -->
                     <tr>
                         <td colspan="2" style="text-align: center;">
                             <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
@@ -95,7 +120,7 @@
                 </table>
             </div>
         </div>
-        <div class="card mt-[30px] mt-3">
+        <div class="card mt-3">
             <div class="card-header">
                 간단 설명
             </div>
@@ -103,19 +128,35 @@
                 <span th:text="${product.description}"></span>
             </div>
         </div>
-        <div class="card mt-[30px] mt-3">
+        <div class="card mt-3">
             <div class="card-header">
                 질문등록
             </div>
             <div class="card-body">
-                <a sec:authorize="isAuthenticated()" th:href="@{/inquiry/create(productId=${product.id})}">질문 등록 및 확인</a>
-                <a sec:authorize="!isAuthenticated()" th:href="@{/member/login}">로그인</a>하기
+                <a sec:authorize="isAuthenticated()" th:href="@{/inquiry/create(productId=${product.id})}" style="color: blue; text-decoration: font-weight: bold;">질문 등록 및 확인</a>
+                <a sec:authorize="!isAuthenticated()" th:href="@{/member/login}" style="color: blue; text-decoration: font-weight: bold;">로그인</a>하기
             </div>
-        </div>
 
+        </div>
     </div>
 </section>
+
 <script>
+    const videoElement = document.getElementById("productVideo");
+
+    videoElement.addEventListener("loadedmetadata", function() {
+        // 비디오의 총 길이를 확인한 후 3초만 재생하도록 설정
+        videoElement.currentTime = 0; // 시작 시간
+        videoElement.play(); // 비디오 재생
+
+        // 3초 후 비디오를 멈추고 처음으로 돌아가게 함
+        setTimeout(() => {
+            videoElement.pause(); // 비디오 멈춤
+            videoElement.currentTime = 0; // 처음으로 돌아가기
+            videoElement.play(); // 다시 재생
+        }, 3000); // 3초
+    });
+
     const auctionEndDate = new Date([[${#dates.format(product.auctionEndDate, 'yyyy-MM-dd HH:mm:ss')}]]).getTime();
     const timerElement = document.getElementById("auction-timer");
 
@@ -128,7 +169,7 @@
             timerElement.innerHTML = "경매가 종료되었습니다.";
             return;
         }
-        console.log("123");
+
         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);

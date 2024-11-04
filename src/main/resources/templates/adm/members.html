@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{/layout/layout}">
+<head>
+    <style>
+        .cart-item-img {
+            width: 80px !important;
+            height: 80px !important;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" class="section-cart-item-list">
+    <div class="container">
+        <div class="container">
+            <h1 class="t-text-[1.5rem] t-font-bold flex justify-center pt-5 pb-2">
+                회원 확인 페이지
+            </h1>
+        </div>
+        <div class="mt-5">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col"><input type="checkbox" class="form-check-input"><span> </span>전체선택</th>
+                    <th scope="col">번호</th>
+                    <th scope="col">유저아이디</th>
+                    <th scope="col">비밀번호</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">잔액</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member,iterStat : ${members}">
+                    <td><input type="checkbox" class="form-check-input"></td>
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${member.username}"></td>
+                    <td th:text="${member.password}"></td>
+                    <td th:text="${member.email}"></td>
+                    <td th:text="${member.balance}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -7,6 +7,15 @@
             height: 80px !important;
             object-fit: cover;
         }
+        .cart-item-video {
+            width: 80px !important;
+            height: 80px !important;
+            object-fit: cover;
+        }
+        .dimmed {
+            opacity: 0.3; /* 흐림 효과 */
+            pointer-events: none; /* 클릭 방지 */
+        }
     </style>
 </head>
 <body>
@@ -22,25 +31,25 @@
                 <thead>
                 <tr>
                     <th scope="col"><input type="checkbox" class="form-check-input"><span> </span>전체선택</th>
-                    <th scope="col">이미지</th>
+                    <th scope="col" >이미지</th>
                     <th scope="col">상품명</th>
-                    <th scope="col">가격</th>
-                    <th scope="col">입찰 시간</th>
-                    <th scope="col">구매/삭제</th> <!-- 앞으로 구현할것 -->
+                    <th scope="col">시작 가격</th>
+                    <th scope="col">현재가</th>
+                    <th scope="col">입찰 한 가격</th>
+                    <th scope="col">입찰 여부</th> <!-- 앞으로 구현할것 -->
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="bid : ${bidList}">
+                <tr th:each="bid : ${bidList}" >
                     <td><input type="checkbox" class="form-check-input"></td>
-                    <td>
-                        <img class="cart-item-img" th:src="@{${bid.product.imagePath}}" src="https://dsi523du1o5iq.cloudfront.net/fit-in/904x0/production/article/29d76a3633/68b4dc8436_1708705668" alt="상품이미지">
+                    <td th:class="dimmed">
+                        <video th:src="${bid.product.videoPath}" class="cart-item-video" muted loop playsinline></video>
                     </td>
                     <td th:text="${bid.product.name}"></td>
+                    <td th:text="${bid.product.startPrice}"></td>
+                    <td th:text="${bid.product.price}"></td>
                     <td th:text="${bid.bidPrice}"></td>
-                    <td>
-                        <a href="#" type="button" class="btn btn-link">구매</a>
-                        <a href="#" type="button" class="btn btn-link">삭제</a>
-                    </td>
+                    <td th:text="${bid.product.startPrice}"></td>
                 </tr>
                 </tbody>
             </table>

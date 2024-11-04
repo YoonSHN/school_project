@@ -5,15 +5,12 @@
     <div class="container">
         <h1 class="text-2xl font-bold mb-4">영상 리스트</h1>
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
-            <li th:each="product, loop : ${paging}" class="flex flex-col">
-                <a th:href="@{|/product/detail/${product.id}|}" href="#" class="block">
-                    <img class="w-full h-48 object-cover"
-                         th:src="@{${product.imagePath}}"
-                         src="https://dsi523du1o5iq.cloudfront.net/fit-in/904x0/production/article/29d76a3633/68b4dc8436_1708705668" alt="">
+            <li th:each="product, loop : ${paging}" th:if="${product.approvedStatus == 'APPROVED'}" class="flex flex-col">
+                <a th:href="@{|/product/detail/${product.id}|}" class="block">
+                    <div class="video-container">
+                        <video th:src="${product.videoPath}" class="cart-item-video blurred-video" muted autoplay loop></video>
+                    </div>
                 </a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.name}" class="text-center mt-2"></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.price} + '원'" class="text-center mt-2"></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="'입찰 단가: ' + ${product.bid_increment}" class="text-center mt-2"></a>
             </li>
         </ul>
         <ul th:if="${!paging.isEmpty()}" class="pagination flex justify-center mt-10 space-x-2">
@@ -54,5 +51,13 @@
             document.getElementById('searchForm').submit();
         });
     </script>
+
+    <style>
+        .blurred-video {
+            filter: blur(5px); /* 블러 효과를 적용합니다. 필요에 따라 수치를 조절하세요. */
+            transition: filter 0.3s ease; /* 부드러운 효과를 위해 전환 속성을 추가합니다. */
+        }
+
+    </style>
 </section>
 </html>
