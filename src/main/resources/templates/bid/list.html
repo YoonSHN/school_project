@@ -35,8 +35,9 @@
                     <th scope="col">상품명</th>
                     <th scope="col">시작 가격</th>
                     <th scope="col">현재가</th>
-                    <th scope="col">입찰 한 가격</th>
-                    <th scope="col">입찰 여부</th> <!-- 앞으로 구현할것 -->
+                    <th scope="col">입찰 가격</th>
+                    <th scope="col">입찰 성공 여부</th>
+                    <th scope="col">다운로드</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,7 +50,18 @@
                     <td th:text="${bid.product.startPrice}"></td>
                     <td th:text="${bid.product.price}"></td>
                     <td th:text="${bid.bidPrice}"></td>
-                    <td th:text="${bid.product.startPrice}"></td>
+                    <td>
+                        <!-- 입찰 성공 여부에 따라 표시 -->
+                        <span th:if="${bid.status == 'Y'}" class="text-success">입찰 성공</span>
+                        <span th:if="${bid.status == 'N'}" class="text-danger">입찰 실패</span>
+                        <span th:if="${bid.product.ongoing}" class="text-muted">경매 진행중</span>
+                    </td>
+                    <td>
+                        <!-- 경매가 종료되었고 입찰이 성공한 경우 다운로드 링크 표시 -->
+                        <a th:if="${bid.status == 'Y' && !bid.product.ongoing}" th:href="@{${bid.downloadLink}}" target="_blank">다운로드</a>
+                        <span th:if="${bid.product.ongoing}" class="text-muted">경매 진행중</span>
+                    </td>
+
                 </tr>
                 </tbody>
             </table>

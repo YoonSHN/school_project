@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,4 +50,15 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy= "product", cascade = CascadeType.REMOVE)
     private List<Bid> bidList = new ArrayList<>();
+
+
+    // 가장 높은 입찰 금액 반환
+    public int getHighestBidPrice() {
+        return (int) bidList.stream()
+                .mapToLong(Bid::getBidPrice)
+                .max()
+                .orElse(0); // 입찰이 없으면 0 반환
+    }
+
+
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -18,10 +19,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("""
         select distinct p
         from Product p
-        where (p.approvedStatus = 'APPROVED') and (p.name LIKE %:kw% or p.script LIKE %:kw%)
+        where (p.approvedStatus = 'APPROVED') and (p.name LIKE %:kw% or p.script LIKE %:kw%) and (p.ongoing = true)
         """)
     Page<Product> findAllByKeyWord(@Param("kw") String kw, Pageable pageable);
 
 
-
+    List<Product> findByAuctionEndDateBeforeAndOngoingFalse(LocalDateTime now);
+    List<Product> findByOngoingFalse();
 }

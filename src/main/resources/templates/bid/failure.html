@@ -7,6 +7,6 @@
     <h2 class="t-text-center t-text-[20px] t-font-bold">상품 주문에 실패하였습니다.</h2>
     <p th:if="${errorMessage}" class="text-danger" th:text="${errorMessage}"></p>
     <div class="t-flex t-justify-center t-mt-[20px]">
-        <a class="btn btn-md btn-secondary" onclick="history.back()">돌아가기</a>
+        <a class="btn btn-md btn-secondary" onclick="history.back().back()">돌아가기</a>
     </div>
 </section>

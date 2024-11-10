@@ -30,10 +30,6 @@
                 </a>
             </li>
         </ul>
-        <form th:action="@{/product/list}" method="GET" id="searchForm">
-            <input type="hidden" id="kw" name="kw" th:value="${kw}">
-            <input type="hidden" id="page" name="page" th:value="${paging.number}">
-        </form>
     </div>
     <script layout:fragment="script" type="text/javascript">
         const page_elements = document.getElementsByClassName('page-link');

@@ -96,7 +96,7 @@ public class ProductController {
         product.setSeller(principal.getName());
 
         // 경매 진행 여부 설정
-        product.    setOngoing(product.getAuctionEndDate().after(new Date()));
+        product.setOngoing(product.getAuctionEndDate().after(new Date()));
         product.setPrice(startPrice);
         product.setBid_increment(Integer.parseInt(bid_increment));
 

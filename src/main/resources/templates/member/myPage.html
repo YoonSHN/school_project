@@ -34,7 +34,7 @@
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <span>유저 비밀번호 : </span>
-                                        <input type="password" th:field="*{password}" class="form-control ms-2" style="width: 50%;" />
+                                        <span class="badge bg-secondary" th:text="${member.password}"></span>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <span>유저 이메일 : </span>
@@ -55,6 +55,7 @@
                         <div class="tab-pane fade" id="bid-record" role="tabpanel" aria-labelledby="bid-record-tab">
                             <li class="list-group-item">
                                 <a th:href="@{/bid/list}" class="btn btn-warning btn-md mt-1 mb-1">입찰 기록 보기</a>
+                                <input type="hidden" name="productId">
                             </li>
                         </div>
 

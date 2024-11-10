@@ -1,5 +1,7 @@
 package com.auction.auction.product.service;
 
+import com.auction.auction.bid.entity.Bid;
+import com.auction.auction.bid.repository.BidRepository;
 import com.auction.auction.product.entity.Product;
 import com.auction.auction.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final BidRepository bidRepository;
 
     public Page<Product> getList(int page, String kw){
         List<Sort.Order> sorts = new ArrayList<>();
@@ -36,6 +39,9 @@ public class ProductService {
         p.setPrice(price);
         p.setCreateDate(LocalDateTime.now());
         productRepository.save(p);
+    }
+    public void create(Product product){
+        productRepository.save(product);
     }
     @Scheduled(fixedRate = 60000) // 1분마다 실행
     public void updateAuctionStatus() {
@@ -72,4 +78,27 @@ public class ProductService {
     public void remove(Product product) {
         productRepository.delete(product);
     }
+
+
+    // 경매 종료 후 입찰 기록 업데이트
+    public void updateBidsAfterAuction(Long productId) {
+        Product product = getProduct(productId);
+
+        // 경매 종료된 경우
+        if (!product.isOngoing()) {
+            // 경매 종료 후 입찰 기록을 Y로 설정하고, 다운로드 링크 추가
+            for (Bid bid : product.getBidList()) {
+                bid.setStatus("Y"); // 입찰 상태를 "Y"로 변경
+                bid.setDownloadLink(generateDownloadLink(productId)); // 다운로드 링크 생성
+                bidRepository.save(bid); // 입찰 기록 업데이트
+            }
+        }
+    }
+
+    // 다운로드 링크 생성 로직
+    private String generateDownloadLink(Long productId) {
+        // 예시: 다운로드 링크 생성
+        return "/Users/yunseunghyeon/Study/Videos/" + "Download" +productId;
+    }
+
 }
