@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorate="~{/layout/layout}">
+<head>
+    <title>마이페이지</title>
+    <!-- 필요한 CSS 파일이나 메타 태그 등을 여기에 추가하세요 -->
+
+</head>
+
+<body>
+
 <section layout:fragment="content" class="section-prod-list">
     <div class="container">
         <div class="col-sm-6 offset-sm-3">
@@ -28,13 +36,14 @@
                         <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="user-info-tab">
                             <form th:action="@{/member/myPage}" th:object="${member}" method="POST">
                                 <ul class="list-group list-group-flush gap-2">
-                                    <li class="list-group-item">
+                                    <li class="list-group-item d-flex align-items-center">
                                         <span>유저 이름 : </span>
-                                        <span class="badge bg-secondary" th:text="${member.username}"></span>
+                                        <span class="badge bg-large bg-secondary" th:text="${member.username}"></span>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <span>유저 비밀번호 : </span>
-                                        <span class="badge bg-secondary" th:text="${member.password}"></span>
+                                        <span class="badge bg-secondary"></span>
+                                        <button type="button" class="btn btn-warning btn-md ms-auto">변경</button>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <span>유저 이메일 : </span>
@@ -42,10 +51,11 @@
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <span>유저 잔액 : </span>
-                                        <input type="number" th:field="*{balance}" class="form-control ms-2" style="width: 50%;" />
+                                        <input type="number" th:field="*{balance}" class="form-control ms-2" style="width: 50%;"  id="balance" />
+                                        <button type="submit" id="chargeButton" class="btn btn-warning btn-md ms-auto" >충전</button>
                                     </li>
                                     <li class="list-group-item">
-                                        <button type="submit" class="btn btn-primary btn-md">저장</button>
+                                        <button type="submit" class="btn btn-primary btn-md">전체 저장</button>
                                     </li>
                                 </ul>
                             </form>
@@ -71,4 +81,25 @@
         </div>
     </div>
 </section>
+
+<!-- JavaScript 파일 끝에 배치 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 충전 버튼을 클릭하면 잔액 입력 필드를 활성화
+        function enableBalance() {
+            const balanceInput = document.getElementById('balance');
+            if (balanceInput.readOnly) {
+                balanceInput.removeAttribute('readonly');  // 읽기 전용 속성 제거
+                balanceInput.focus();  // 포커스를 줘서 사용자가 즉시 수정할 수 있게 함
+            }
+        }
+
+        // 충전 버튼 클릭 시 이벤트 바인딩
+        const chargeButton = document.getElementById('chargeButton');
+        if (chargeButton) {
+            chargeButton.addEventListener('click', enableBalance);
+        }
+    });
+</script>
+</body>
 </html>

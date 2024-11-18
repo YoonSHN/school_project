@@ -26,7 +26,7 @@ public class ProductServiceTests {
         Member member = new Member();
         memberService.join("판매자","0000","sample@email.com");
         for(int i = 1;i <= 8 ;++i){
-            String name = String.format("테스트 상품 :[%03d]", i);
+            String name =  String.format("테스트 상품 :[%03d]", i);
             Product product = new Product();
             product.setName(name);
             product.setPrice(10000);
@@ -34,10 +34,10 @@ public class ProductServiceTests {
             product.setStartPrice(10000);
             product.setInstantPrice(50000);
             product.setBuyer("구매자");
-            product.setSeller("판매자");
+            product.setSeller("관리자");
             product.setApprovedStatus("PENDING");
             product.setVideoPath("/Videos/Download" + i  + ".mp4"); // 수정된 경로
-            product.setDescription("테스트 상품입니다." + i); ;
+            product.setDescription("테스트 상품입니다."); ;
 
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime auctionEndDateTime = now.plusDays(1); // 하루 추가
